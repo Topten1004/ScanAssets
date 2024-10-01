@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shortcut"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    tools:context="com.example.ScanAndGo.CheckActivity">
+
+    <TextView
+        android:id="@+id/shortCutName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingTop="12px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCheckRightLocation"
+                android:layout_width="293dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/fab_margin"
+                android:onClick="onCheckRightLocation"
+                android:text="in the right location"
+                android:textAlignment="viewStart"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtRightCount"
+                android:layout_width="324dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/rightItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#64EB8A" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCheckWrongLocation"
+                android:layout_width="292dp"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/listPreferredItemPaddingStart"
+                android:onClick="onCheckWrongLocation"
+                android:text="in the wrong location"
+                android:textAlignment="viewStart"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtWrongCount"
+                android:layout_width="318dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/wrongItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FAB2B2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCheckMissingLocation"
+                android:layout_width="291dp"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/fab_margin"
+                android:minHeight="@dimen/fab_margin"
+                android:onClick="onCheckMissingLocation"
+                android:text="missing in the location"
+                android:textAlignment="viewStart"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtMissingCount"
+                android:layout_width="316dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/missingItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#CCCCCC" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCheckUnknownLocation"
+                android:layout_width="225dp"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/fab_margin"
+                android:minHeight="@dimen/fab_margin"
+                android:onClick="onCheckUnknownLocation"
+                android:text="unknown from database"
+                android:textAlignment="viewStart"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtUnknownCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnAddMissing"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="@dimen/fab_margin"
+                android:minHeight="@dimen/fab_margin"
+                android:onClick="onAddMissingItems"
+                android:text="add"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/unknownItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#006ED3" />
+
+    </LinearLayout>
+
+</LinearLayout>
