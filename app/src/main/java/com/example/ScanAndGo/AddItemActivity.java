@@ -9,29 +9,20 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.ScanAndGo.dto.Category;
-import com.example.ScanAndGo.dto.CheckItem;
 import com.example.ScanAndGo.dto.PostAsset;
 import com.example.ScanAndGo.dto.StatusVM;
-import com.example.ScanAndGo.json.JsonTaskGetCategoryList;
 import com.example.ScanAndGo.json.JsonTaskPostAsset;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class AddItemActivity extends BaseActivity{
@@ -43,12 +34,8 @@ public class AddItemActivity extends BaseActivity{
 
     public int categoryId = 0;
 
-    public Spinner categoryList;
-
     TextView locationName;
     TextView tvRfidTag;
-
-    public ArrayList<CheckItem> itemLists = new ArrayList<>();
 
     public EditText etAssetName;
 
@@ -61,8 +48,6 @@ public class AddItemActivity extends BaseActivity{
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
         }
-
-        Intent intent = getIntent();
 
         assetImage = findViewById(R.id.iv_asset_image);
 
@@ -78,67 +63,6 @@ public class AddItemActivity extends BaseActivity{
     public void OnBack(View view) {
 
         startActivityForResult(new Intent(getApplicationContext(), FirstSceneActivity.class), 0);
-    }
-
-    public void onReadCategory()
-    {
-        String req = Globals.apiUrl + "category/read";
-
-        try {
-
-            List<Category> categories = new ArrayList<>();
-
-            categories = new JsonTaskGetCategoryList().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req).get();
-
-            Collections.sort(categories);
-
-            if (categories != null) {
-
-                List<Category> finalCategories = categories;
-                ArrayAdapter<Category> categoryAdapter = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, finalCategories) {
-                    @Override
-                    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                        TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
-                        textView.setText(finalCategories.get(position).getName()); // Assuming getName() returns the category name
-                        return textView;
-                    }
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        TextView textView = (TextView) super.getView(position, convertView, parent);
-                        textView.setText(getItem(position).getName()); // Assuming getName() returns the item name
-                        return textView;
-                    }
-                };
-
-                // Specify the layout to use when the list of choices appears
-                categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                // Apply the adapter to the spinner
-                categoryList.setAdapter(categoryAdapter);
-            }
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        categoryList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Retrieve the selected category
-                Category selectedCategory = (Category) parentView.getItemAtPosition(position);
-
-                // Call API to fetch items based on the selected category
-                if (selectedCategory != null) {
-                    categoryId = selectedCategory.getId();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Do nothing if nothing is selected
-            }
-        });
     }
 
     @Override
@@ -180,16 +104,27 @@ public class AddItemActivity extends BaseActivity{
 
     public void OnAddAssets(View view) {
 
-        if(Globals.selectedLocation.id > 0 && categoryId > 0)
+        if(Globals.selectedLocation.id > 0)
         {
+            if(Globals.selectedImage.length == 0)
+            {
+                Toast.makeText(this, "Selected assets doesn't have image.", Toast.LENGTH_SHORT).show();
+                return ;
+            }
+
+            if( Globals.tagsList.size() == 0 )
+            {
+                Toast.makeText(this, "Tag doesn't exists.", Toast.LENGTH_SHORT).show();
+                return ;
+            }
+
             String rfid = Globals.tagsList.get(0);
-            String barcode = Globals.barcodeList.get(0);
             String name = etAssetName.getText().toString();
 
-            PostAsset model = new PostAsset(Globals.selectedLocation.id, categoryId, name, rfid, barcode, Globals.selectedImage );
+            PostAsset model = new PostAsset(rfid, 1, Globals.selectedImage, "", name, Globals.selectedLocation.id, 3 );
 
             Globals g = (Globals)getApplication();
-            String req = g.apiUrl + "user/signin";
+            String req = g.apiUrl + "inventory/create";
 
             Gson gson = new Gson();
             String modelString = gson.toJson(model);
@@ -200,7 +135,7 @@ public class AddItemActivity extends BaseActivity{
 
                 if(result.status == 1)
                 {
-
+                    Toast.makeText(this, "Save Asset Successfully!", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (ExecutionException e) {
@@ -209,9 +144,13 @@ public class AddItemActivity extends BaseActivity{
                 e.printStackTrace();
             }
         }
+        else {
+            Toast.makeText(this, "Selected location doesn't exists.", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void OnIdentificationItem(View view) {
-        startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 0);
+    public void OnIdentificationItem(View view)
+    {
+        onBackPressed();
     }
 }

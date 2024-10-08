@@ -2,6 +2,7 @@ package com.example.ScanAndGo.json;
 
 import android.os.AsyncTask;
 import com.example.ScanAndGo.dto.LocationItem;
+import com.example.ScanAndGo.dto.LocationVM;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,13 +16,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class JsonTaskGetLocationItemList extends AsyncTask<String, String, List<LocationItem>> {
+public class JsonTaskGetLocationItemList extends AsyncTask<String, String, List<LocationVM>> {
 
     public JsonTaskGetLocationItemList() {
         super();
     }
 
-    protected List<LocationItem> doInBackground(String... params) {
+    protected List<LocationVM> doInBackground(String... params) {
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -42,7 +43,7 @@ public class JsonTaskGetLocationItemList extends AsyncTask<String, String, List<
             if(!authOk) authOk = !buffer.substring(0, 15).equals("<!DOCTYPE html>");
             if(authOk){
 
-                Type t = new TypeToken<List<LocationItem>>(){}.getType();
+                Type t = new TypeToken<List<LocationVM>>(){}.getType();
                 return new Gson().fromJson(buffer.toString(), t);
 
             }
@@ -66,7 +67,7 @@ public class JsonTaskGetLocationItemList extends AsyncTask<String, String, List<
     }
 
     @Override
-    protected void onPostExecute(List<LocationItem> result) {
+    protected void onPostExecute(List<LocationVM> result) {
         super.onPostExecute(result);
     }
 }

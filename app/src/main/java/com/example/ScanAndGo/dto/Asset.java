@@ -2,8 +2,7 @@ package com.example.ScanAndGo.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Item  implements  Comparable<Item> {
-
+public class Asset  implements  Comparable<Asset> {
 
     @SerializedName("id")
     public int id;
@@ -12,28 +11,22 @@ public class Item  implements  Comparable<Item> {
 
     public String name;
 
-    @SerializedName("category_id")
-
-    public int categoryId;
-
     @SerializedName("barcode")
 
     public String barcode;
 
+    @SerializedName("photo")
+
+    public byte[] photo;
+
     @Override
-    public int compareTo(Item otherItem) {
+    public int compareTo(Asset otherItem) {
         // Compare by id
         return Integer.compare(this.id, otherItem.id);
     }
 
-    @Override
-    public String toString() {
-        return "Item {" +
-                "id=" + id +
-                ", name='" + name + ",categoryId=" + categoryId + ", barcode=" + barcode +
-                '}';
-    }
-    public Item()
+
+    public Asset()
     {
 
     }
@@ -47,10 +40,11 @@ public class Item  implements  Comparable<Item> {
     {
         return this.id;
     }
-    public Item(int id, int categoryId, String name, String barcode) {
+
+    public Asset(int id, String name, String barcode, byte[] photo) {
         this.id = id;
-        this.categoryId = categoryId;
         this.name = name;
         this.barcode = barcode;
+        this.photo = photo;
     }
 }

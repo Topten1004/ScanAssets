@@ -5,11 +5,6 @@ import android.os.AsyncTask;
 
 import com.example.ScanAndGo.component.Connectivity;
 import com.example.ScanAndGo.component.NetworkTask;
-import com.example.ScanAndGo.dto.Area;
-import com.example.ScanAndGo.dto.Category;
-import com.example.ScanAndGo.dto.Floor;
-import com.example.ScanAndGo.dto.Item;
-import com.example.ScanAndGo.dto.Building;
 import com.example.ScanAndGo.dto.LocationVM;
 
 import java.util.ArrayList;
@@ -25,12 +20,10 @@ public class Globals extends Application {
     public static Boolean dispoAPI = false;
 
     public static String url = "https://api.inventaire.scanandgo.nc/";
-    public static List<Category> categoryLists = new ArrayList<>();
 
-    public static List<Item> itemLists = new ArrayList<>();
+    public static List<LocationVM> locationList = new ArrayList<>();
     public static List<String> tagsList = new ArrayList<>();
     public static List<String> barcodeList = new ArrayList<>();
-
     public static List<String> unknownItems = new ArrayList<>();
 
     public static String apiUrl = url + "api/";

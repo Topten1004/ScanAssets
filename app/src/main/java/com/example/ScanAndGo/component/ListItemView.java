@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.ScanAndGo.BoardItemActivity;
 import com.example.ScanAndGo.AddItemActivity;
 import com.example.ScanAndGo.Globals;
 import com.example.ScanAndGo.R;
@@ -31,7 +30,6 @@ public class ListItemView extends ArrayAdapter<ButtonItem> {
 
     public int id;
     public boolean isUsed;
-    private BoardItemActivity itemActivity;
 
     private FirstSceneActivity shortCutActivity;
 
@@ -87,14 +85,10 @@ public class ListItemView extends ArrayAdapter<ButtonItem> {
 
                 if (type == 1)
                 {
-                    Globals.categoryId = item.id;
-
-                    Intent intent = new Intent(getContext(), BoardItemActivity.class);
-                    intent.putExtra("categoryId", item.id);
-                    getContext().startActivity(intent);
 
                 }
-                else if (type >= 7)           // when user click the check tag part
+                // when user click the check tag part
+                else if (type >= 7)
                 {
                     Intent intent = new Intent(getContext(), AddItemActivity.class);
 
@@ -171,7 +165,6 @@ public class ListItemView extends ArrayAdapter<ButtonItem> {
                     String req = Globals.apiUrl + "item/delete?id=" + String.valueOf(item.id);
                     new JsonTaskDeleteItem().execute(req);
 
-                    itemActivity.reCallAPI();
                 } else if (type == 3) {
                     String req = Globals.apiUrl + "building/delete?id=" + String.valueOf(item.id);
                     new JsonTaskDeleteItem().execute(req);

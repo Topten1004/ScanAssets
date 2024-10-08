@@ -4,34 +4,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class PostAsset {
 
-    public PostAsset(int _location_id, int _category_id, String _name, String _rfid, String _barcode, byte[] _imageData)
+    public PostAsset(String _barcode, int _status, byte[] _imageData, String _comment, String _name, int _location_id, int _customer_id)
     {
-        this.locationId = _location_id;
-        this.categoryId = _category_id;
-        this.name = _name;
-        this.rfid = _rfid;
         this.barcode = _barcode;
-        this.imageData = _imageData;
+        this.status = _status;
+        this.photo = _imageData;
+        this.comment = _comment;
+        this.name = _name;
+        this.locationId = _location_id;
+        this.customerId = _customer_id;
+
     }
-
-    @SerializedName("locationId")
-    public int locationId;
-
-    @SerializedName("categoryId")
-    public int categoryId;
-
-    @SerializedName("name")
-    public String name;
-
-    @SerializedName("rfid")
-    public String rfid;
 
     @SerializedName("barcode")
     public String barcode;
 
-    @SerializedName("imgData")
-    public byte[] imageData;
+    @SerializedName("status")
+    public int status;
 
+    @SerializedName("photo")
+    public byte[] photo;
+
+    @SerializedName("comment")
+    public String comment;
+
+    @SerializedName("asset_name")
+    public String name;
+
+    @SerializedName("location_id")
+    public int locationId;
+
+    @SerializedName("customer_id")
+    public int customerId;
 
     public PostAsset() {
 

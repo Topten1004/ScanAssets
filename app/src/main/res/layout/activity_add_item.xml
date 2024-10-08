@@ -10,6 +10,29 @@
     android:orientation="vertical"
     tools:context="com.example.ScanAndGo.AddItemActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/appbar_padding"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="OnAddAssets"
+            android:text="ADD" />
+
+        <Button
+            android:id="@+id/btn_return_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="OnIdentificationItem"
+            android:text="SEARCH" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
@@ -39,18 +62,19 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_camera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="OnAssetImageCapture"
-        android:text="asset image" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Asset name" />
+
+    <EditText
+        android:id="@+id/et_asset_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,47 +90,17 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_asset_name"
+    <Button
+        android:id="@+id/btn_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="" />
-
-    <Spinner
-        android:id="@+id/categorySelect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown" />
+        android:onClick="OnAssetImageCapture"
+        android:text="asset image" />
 
     <ImageView
         android:id="@+id/iv_asset_image"
-        android:layout_width="367dp"
-        android:layout_height="243dp"
+        android:layout_width="378dp"
+        android:layout_height="227dp"
         tools:src="@tools:sample/avatars" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/appbar_padding"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_add_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="OnAddAssets"
-            android:text="ADD" />
-
-        <Button
-            android:id="@+id/btn_return_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="OnIdentificationItem"
-            android:text="SEARCH" />
-    </LinearLayout>
 
 </LinearLayout>

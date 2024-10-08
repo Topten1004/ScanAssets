@@ -120,21 +120,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             setTitle(String.format("%s(v%s)", getString(R.string.app_name), getVerName() ));
         }
 
-        if(Globals.mode == 1)
-        {
-            uhf.setPower(1);
-        }
-
-        if(Globals.mode == 2)
-        {
-            uhf.setPower(7);
-        }
-
-        if(Globals.mode == 3)
-        {
-            uhf.setPower(7);
-        }
-
         initUI();
         checkReadWritePermission();
         checkLocationEnable();

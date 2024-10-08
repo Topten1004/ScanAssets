@@ -3,13 +3,7 @@ package com.example.ScanAndGo.json;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.ScanAndGo.dto.Category;
 import com.example.ScanAndGo.dto.ResponseCheckItem;
-import com.example.ScanAndGo.dto.ResponseCheckItems;
-import com.example.ScanAndGo.dto.ResponseCheckTag;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
