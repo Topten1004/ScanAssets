@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ScanAndGo.component.ListItemView;
-import com.example.ScanAndGo.dto.ButtonItem;
+import com.example.ScanAndGo.dto.AssetsItem;
 import com.example.ScanAndGo.dto.ResponseCheckTag;
 import com.example.ScanAndGo.dto.PostCheckTags;
 import com.example.ScanAndGo.json.JsonTaskCheckTag;
@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 public class CheckActivity extends BaseActivity{
 
-    private List<ButtonItem> missingItemList = new ArrayList<>();
+    public List<AssetsItem> missingItemList = new ArrayList<>();
 
     private String[] missingListValues;
 
@@ -33,6 +33,7 @@ public class CheckActivity extends BaseActivity{
     public int type = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
 
@@ -49,14 +50,13 @@ public class CheckActivity extends BaseActivity{
 
     public void CallAPI()
     {
-        Globals g = (Globals) getApplication();
-
-        String req = g.apiUrl + "inventory/detect/barcode";
+        String req = Globals.apiUrl + "inventory/detect/barcode";
 
         try {
             PostCheckTags model = new PostCheckTags();
 
-            model.barcodes = Globals.tagsList;
+            model.location_id = Globals.selectedLocation.id;
+            model.barcode_list = Globals.tagsList;
 
             ResponseCheckTag response = new ResponseCheckTag();
 
@@ -74,10 +74,10 @@ public class CheckActivity extends BaseActivity{
             throw new RuntimeException(e);
         }
 
-        ListItemView missingAdapter = new ListItemView(this, missingItemList, null);
+        ListItemView missingAdapter = new ListItemView(this, missingItemList);
         // Set the adapter for the ListView
         missingListView.setAdapter(missingAdapter);
 
-        tvMissingCount.setText(missingItemList.size() + " assets");
+        tvMissingCount.setText( missingItemList.size() + " assets");
     }
 }

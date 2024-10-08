@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -7,41 +9,23 @@
     android:padding="1dp">
 
     <!-- Main Button with 70% width -->
-    <Button
-        android:id="@+id/mainButton"
-        android:layout_width="0dp"
+
+    <ImageView
+        android:id="@+id/iv_missing_asset_image"
+        android:layout_width="263dp"
+        android:layout_height="144dp"
+        android:layout_weight="1"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_asset_rfid"
+        android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:layout_weight="6"
-        android:width="360px"
-        android:minHeight="@dimen/appbar_padding_top"
-        android:text="Main Button"
-        android:textSize="12sp" />
+        android:text="564128133" />
 
     <!-- Trash Button with 15% width -->
-    <ImageButton
-        android:id="@+id/trashButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:background="@drawable/actionbar_back"
-        android:contentDescription="Trash Button"
-        android:src="@drawable/trash" />
 
     <!-- Edit Button with 15% width -->
-    <ImageButton
-        android:id="@+id/editButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:background="@drawable/actionbar_back"
-        android:contentDescription="Edit Button"
-        android:src="@drawable/edit" />
-
-    <CheckBox
-        android:id="@+id/checkBarcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 
 
 </LinearLayout>

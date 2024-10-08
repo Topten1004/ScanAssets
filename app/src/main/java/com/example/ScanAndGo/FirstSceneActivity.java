@@ -99,12 +99,12 @@ public class FirstSceneActivity extends BaseActivity{
     public void OnCheck(View view) {
 
         Globals.mode = 2;
-        startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 0);
+        startActivityForResult(new Intent(getApplicationContext(), CheckActivity.class), 0);
     }
 
     public void OnControlAsset(View view) {
 
         Globals.mode = 3;
-        startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 0);
+        startActivityForResult(new Intent(getApplicationContext(), CheckActivity.class), 0);
     }
 }
