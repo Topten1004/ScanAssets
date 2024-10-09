@@ -42,16 +42,13 @@ public class FirstSceneActivity extends BaseActivity{
     public void OnIdentification(View view) {
 
         Globals.mode = 1;
-        if(tvLocationName.getText().length() > 0)
-        {
+        if (tvLocationName.getText().length() > 0) {
             boolean flag = false;
             LocationVM location = new LocationVM();
 
-            for (int i = 0; i < Globals.locationList.size(); i++)
-            {
+            for (int i = 0; i < Globals.locationList.size(); i++) {
                 LocationVM temp = Globals.locationList.get(i);
-                if (temp.name.equals(tvLocationName.getText()))
-                {
+                if (temp.name.equals(tvLocationName.getText())) {
                     flag = true;
 
                     location.id = temp.id;
@@ -59,14 +56,12 @@ public class FirstSceneActivity extends BaseActivity{
                 }
             }
 
-            if ( !flag )
-            {
+            if (!flag) {
                 Toast.makeText(this, "Location name is not correct", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Globals.selectedLocation = location;
-
 
             startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 0);
         }
@@ -77,7 +72,7 @@ public class FirstSceneActivity extends BaseActivity{
 
     public void OnLoadLocations()
     {
-        String req = Globals.apiUrl + "building/read";
+        String req = Globals.apiUrl + "building/read?customer_id=3";
         try {
 
             List<LocationVM> locations = new ArrayList<>();
@@ -99,12 +94,62 @@ public class FirstSceneActivity extends BaseActivity{
     public void OnCheck(View view) {
 
         Globals.mode = 2;
-        startActivityForResult(new Intent(getApplicationContext(), CheckActivity.class), 0);
+        if (tvLocationName.getText().length() > 0) {
+            boolean flag = false;
+            LocationVM location = new LocationVM();
+
+            for (int i = 0; i < Globals.locationList.size(); i++) {
+                LocationVM temp = Globals.locationList.get(i);
+                if (temp.name.equals(tvLocationName.getText())) {
+                    flag = true;
+
+                    location.id = temp.id;
+                    location.name = temp.name;
+                }
+            }
+
+            if (!flag) {
+                Toast.makeText(this, "Location name is not correct", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Globals.selectedLocation = location;
+
+            startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 0);
+        }
+        else {
+            Toast.makeText(this, "Please input the location name", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void OnControlAsset(View view) {
 
         Globals.mode = 3;
-        startActivityForResult(new Intent(getApplicationContext(), CheckActivity.class), 0);
+        if (tvLocationName.getText().length() > 0) {
+            boolean flag = false;
+            LocationVM location = new LocationVM();
+
+            for (int i = 0; i < Globals.locationList.size(); i++) {
+                LocationVM temp = Globals.locationList.get(i);
+                if (temp.name.equals(tvLocationName.getText())) {
+                    flag = true;
+
+                    location.id = temp.id;
+                    location.name = temp.name;
+                }
+            }
+
+            if (!flag) {
+                Toast.makeText(this, "Location name is not correct", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Globals.selectedLocation = location;
+
+            startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 0);
+        }
+        else {
+            Toast.makeText(this, "Please input the location name", Toast.LENGTH_SHORT).show();
+        }
     }
 }

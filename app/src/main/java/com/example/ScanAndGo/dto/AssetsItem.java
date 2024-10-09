@@ -1,18 +1,22 @@
 package com.example.ScanAndGo.dto;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AssetsItem {
 
+    @SerializedName("id")
     public int id;
 
-    public byte[] photo;
+    @SerializedName("barcode")
+    public String barcode;
 
-    public String rfid;
+    @SerializedName("url")
+    public String url;
 
-    public AssetsItem(int _id, String _rfid, byte[] _photo) {
+    public AssetsItem(int _id, String _barcode, String _url) {
 
         this.id = _id;
-        this.rfid = _rfid;
-        this.photo = _photo;
+        this.barcode = _barcode;
+        this.url = _url;
     }
-
 }

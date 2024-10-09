@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.os.Bundle;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+import com.bumptech.glide.Glide;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,9 +26,9 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
     public int id;
 
-    public String rfid;
+    public String barcode;
 
-    public byte[] photo;
+    public String url;
 
     public ListItemView(@NonNull Context context, @NonNull List<AssetsItem> objects) {
 
@@ -45,9 +49,11 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
         id = item.id;
 
-        photo = item.photo;
+        Glide.with(this.getContext())
+                .load(item.url)
+                .into(assetImage);
 
-        rfid = item.rfid;
+        barcode = item.barcode;
 
         return convertView;
     }

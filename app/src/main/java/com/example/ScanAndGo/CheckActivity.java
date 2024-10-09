@@ -1,15 +1,12 @@
 package com.example.ScanAndGo;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ScanAndGo.component.ListItemView;
 import com.example.ScanAndGo.dto.AssetsItem;
-import com.example.ScanAndGo.dto.ResponseCheckTag;
 import com.example.ScanAndGo.dto.PostCheckTags;
 import com.example.ScanAndGo.json.JsonTaskCheckTag;
 import com.google.gson.Gson;
@@ -21,8 +18,6 @@ import java.util.concurrent.ExecutionException;
 public class CheckActivity extends BaseActivity{
 
     public List<AssetsItem> missingItemList = new ArrayList<>();
-
-    private String[] missingListValues;
 
     private ListView missingListView;
 
@@ -45,7 +40,6 @@ public class CheckActivity extends BaseActivity{
 
         CallAPI();
 
-        Globals.unknownItems.clear();
     }
 
     public void CallAPI()
@@ -53,12 +47,17 @@ public class CheckActivity extends BaseActivity{
         String req = Globals.apiUrl + "inventory/detect/barcode";
 
         try {
+
             PostCheckTags model = new PostCheckTags();
 
-            model.location_id = Globals.selectedLocation.id;
-            model.barcode_list = Globals.tagsList;
+            tvLocationName.setText(Globals.selectedLocation.name);
 
-            ResponseCheckTag response = new ResponseCheckTag();
+            model.location_id = Globals.selectedLocation.id;
+
+            if (Globals.mode == 2)
+                model.barcode_list = Globals.tagsList;
+
+            List<AssetsItem> response = new ArrayList<>();
 
             Gson gson = new Gson();
             String modelString = gson.toJson(model);
@@ -67,7 +66,9 @@ public class CheckActivity extends BaseActivity{
 
             if (response != null) {
 
+                missingItemList = response;
             }
+
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
