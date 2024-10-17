@@ -20,9 +20,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class JsonTaskUpdateItem extends AsyncTask<String, String, MessageVM> {
+public class JsonTaskUpdateTag extends AsyncTask<String, String, MessageVM> {
 
-    public JsonTaskUpdateItem() {
+    public JsonTaskUpdateTag() {
         super();
     }
 
@@ -33,7 +33,6 @@ public class JsonTaskUpdateItem extends AsyncTask<String, String, MessageVM> {
         BufferedReader reader = null;
 
         try {
-            Log.e("UpdateItem:::", params[0] + " " + params[1]);
             URL url = new URL(params[0]);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Content-Type", "application/json");
@@ -94,8 +93,7 @@ public class JsonTaskUpdateItem extends AsyncTask<String, String, MessageVM> {
 
     private OnUpdateCompleteListener listener;
 
-    public JsonTaskUpdateItem(OnUpdateCompleteListener listener) {
+    public JsonTaskUpdateTag(OnUpdateCompleteListener listener) {
         this.listener = listener;
     }
-
 }

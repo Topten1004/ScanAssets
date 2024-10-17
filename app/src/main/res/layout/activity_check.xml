@@ -25,6 +25,37 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/lv_wrong_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_wrong_label"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text=" Wrong location assets: "
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_wrong_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/btn_fix_wrong_location"
+                android:layout_width="71dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="OnFixWrongLocation"
+                android:text="Fix" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lv_missing_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -39,8 +70,8 @@
             <TextView
                 android:id="@+id/tv_missing_count"
                 android:layout_width="120dp"
-                android:text="0"
                 android:layout_height="wrap_content"
+                android:text="0"
                 android:textSize="24sp" />
 
         </LinearLayout>

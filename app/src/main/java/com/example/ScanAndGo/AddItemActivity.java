@@ -1,6 +1,7 @@
 package com.example.ScanAndGo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -62,9 +64,12 @@ public class AddItemActivity extends BaseActivity{
 
     public void OnBack(View view) {
 
-        startActivityForResult(new Intent(getApplicationContext(), FirstSceneActivity.class), 0);
+        Globals.tagsList.clear();
+        onBackPressed();
+
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
@@ -89,6 +94,7 @@ public class AddItemActivity extends BaseActivity{
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
@@ -96,9 +102,18 @@ public class AddItemActivity extends BaseActivity{
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             assetImage.setImageBitmap(photo);
 
-            // Store the image in a byte array (optional, for further use)
-            Globals.selectedImage = bitmapToByteArray(photo);
+            // Convert Bitmap to byte[]
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+            // Encode byte[] to Base64 String
+            String base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+            // Store the Base64 string as needed
+            Globals.selectedImage = base64String;
             Globals.mode = 1;
+
         }
     }
 
@@ -106,7 +121,7 @@ public class AddItemActivity extends BaseActivity{
 
         if(Globals.selectedLocation.id > 0)
         {
-            if(Globals.selectedImage.length == 0)
+            if(Globals.selectedImage.length() == 0)
             {
                 Toast.makeText(this, "Selected assets doesn't have image.", Toast.LENGTH_SHORT).show();
                 return ;
@@ -133,9 +148,11 @@ public class AddItemActivity extends BaseActivity{
 
                 StatusVM result = new JsonTaskPostAsset().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req, modelString).get();
 
-                if(result.status == 1)
+                if(result.status > 1)
                 {
-                    Toast.makeText(this, "Save Asset Successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Item added successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Item not added successfully!", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (ExecutionException e) {
@@ -151,6 +168,7 @@ public class AddItemActivity extends BaseActivity{
 
     public void OnIdentificationItem(View view)
     {
+        Globals.tagsList.clear();
         onBackPressed();
     }
 }

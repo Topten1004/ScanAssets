@@ -30,7 +30,6 @@ public class JsonTaskGetLocationItemList extends AsyncTask<String, String, List<
         try {
             URL url = new URL(params[0]);
             connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestProperty("Authorization", "Bearer " + params[1]);
             connection.connect();
 
             InputStream stream = connection.getInputStream();

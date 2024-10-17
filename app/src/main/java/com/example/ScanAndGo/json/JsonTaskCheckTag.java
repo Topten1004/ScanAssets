@@ -3,6 +3,7 @@ package com.example.ScanAndGo.json;
 import android.os.AsyncTask;
 
 import com.example.ScanAndGo.dto.AssetsItem;
+import com.example.ScanAndGo.dto.CheckBarCode;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,13 +22,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class JsonTaskCheckTag extends AsyncTask<String, String, List<AssetsItem>> {
+public class JsonTaskCheckTag extends AsyncTask<String, String, CheckBarCode> {
 
     public JsonTaskCheckTag() {
         super();
     }
 
-    protected List<AssetsItem> doInBackground(String... params) {
+    protected CheckBarCode doInBackground(String... params) {
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -60,7 +61,7 @@ public class JsonTaskCheckTag extends AsyncTask<String, String, List<AssetsItem>
             if(!authOk) authOk = !buffer.substring(0, 15).equals("<!DOCTYPE html>");
             if(authOk){
 
-                Type t = new TypeToken<List<AssetsItem>>(){}.getType();
+                Type t = new TypeToken<CheckBarCode>(){}.getType();
                 return new Gson().fromJson(buffer.toString(), t);
             }
 
@@ -80,7 +81,7 @@ public class JsonTaskCheckTag extends AsyncTask<String, String, List<AssetsItem>
     }
 
     @Override
-    protected void onPostExecute(List<AssetsItem> result) {
-        super.onPostExecute((List<AssetsItem>) result);
+    protected void onPostExecute(CheckBarCode result) {
+        super.onPostExecute((CheckBarCode) result);
     }
 }

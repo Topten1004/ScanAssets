@@ -20,12 +20,14 @@
         android:text="Input location"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/tb_location_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text" />
+        android:hint="Enter location name"
+        android:inputType="text"
+        android:completionThreshold="1" />
+
 
     <Button
         android:id="@+id/btn_identification"

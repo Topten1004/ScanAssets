@@ -161,10 +161,7 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
 
     public void onCheck()
     {
-        Globals.tagsList.add("adfadf");
-        // Identification mode
-        if(Globals.mode == 1)
-            startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
+        Globals.tagsList.add("addfadf");
 
         if( Globals.tagsList.size() > 0 )
         {

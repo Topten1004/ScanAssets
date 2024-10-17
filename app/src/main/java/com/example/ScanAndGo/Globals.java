@@ -19,7 +19,7 @@ public class Globals extends Application {
     public static String dns = "";
     public static Boolean dispoAPI = false;
 
-    public static String url = "https://api.inventaire.scanandgo.nc/";
+    public static String url = "https://api.scanassets.com/";
 
     public static List<LocationVM> locationList = new ArrayList<>();
     public static List<String> tagsList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Globals extends Application {
     public static int checkedItem = 0;
     public static String nowBarCode;
 
-    public static byte[] selectedImage;
+    public static String selectedImage;
     @SuppressWarnings("deprecation")
 
     public boolean isNetworkConnected() {
