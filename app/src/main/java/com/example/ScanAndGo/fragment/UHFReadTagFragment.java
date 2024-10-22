@@ -161,8 +161,6 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
 
     public void onCheck()
     {
-        Globals.tagsList.add("addfadf");
-
         if( Globals.tagsList.size() > 0 )
         {
             if(Globals.mode == 1)
@@ -173,6 +171,9 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
 
             if(Globals.mode == 3)
                 startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+        }
+        else {
+            showToast("Scan at least one tag");
         }
     }
 
@@ -285,9 +286,12 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
         LvTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Globals.selectedTagId = position;
                 selectIndex=position;
                 adapter.notifyDataSetInvalidated();
                 mContext.selectEPC=tagList.get(position).get(MainActivity.TAG_EPC);
+
             }
         });
 

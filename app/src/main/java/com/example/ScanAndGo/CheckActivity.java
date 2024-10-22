@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class CheckActivity extends BaseActivity{
 
+    public List<AssetsItem> unknownItemList = new ArrayList<>();
     public List<AssetsItem> missingItemList = new ArrayList<>();
     public List<AssetsItem> wrongItemList = new ArrayList<>();
 
@@ -33,13 +34,16 @@ public class CheckActivity extends BaseActivity{
 
     private TextView tvMissingCount;
 
+    private TextView tvWrongLocationCount;
+
     private TextView tvLocationName;
 
     private LinearLayout llWrongLocation;
 
     private LinearLayout llMissingLocation;
 
-    private TextView tvWrongLocationCount;
+    private LinearLayout llUnknownLocation;
+
 
     public int type = 0;
     @Override
@@ -58,12 +62,15 @@ public class CheckActivity extends BaseActivity{
 
         llMissingLocation = (LinearLayout) findViewById(R.id.lv_missing_location);
 
+        llUnknownLocation = (LinearLayout) findViewById(R.id.lv_unknown_location);
+
         tvWrongLocationCount = (TextView) findViewById(R.id.tv_wrong_count);
 
         if(Globals.mode != 2)
         {
             llWrongLocation.setVisibility(View.GONE);
             llMissingLocation.setVisibility(View.GONE);
+            llUnknownLocation.setVisibility(View.GONE);
         }
 
         CallAPI();
@@ -98,6 +105,7 @@ public class CheckActivity extends BaseActivity{
 
                     wrongItemList = response.wrongList;
                     missingItemList = response.missingList;
+                    unknownItemList = response.unknownList;
                 }
 
             } catch (ExecutionException e) {
@@ -108,7 +116,10 @@ public class CheckActivity extends BaseActivity{
 
         }
         else {
-            String req = Globals.apiUrl + "inventory/read/bybarcode?barcode=" + Globals.tagsList.get(0);
+
+            String tag = Globals.tagsList.get(Globals.selectedTagId);
+
+            String req = Globals.apiUrl + "inventory/read/bybarcode?barcode=" + tag;
 
             try {
 
@@ -118,9 +129,8 @@ public class CheckActivity extends BaseActivity{
 
                 if (response != null) {
 
-                    AssetsItem temp = new AssetsItem(response.id, Globals.tagsList.get(0), response.url);
+                    AssetsItem temp = new AssetsItem(response.id, tag, response.url);
                     missingItemList.add(temp);
-
                 }
 
             } catch (ExecutionException e) {
@@ -129,22 +139,27 @@ public class CheckActivity extends BaseActivity{
                 throw new RuntimeException(e);
             }
 
-            ListItemView missingAdapter = new ListItemView(this, missingItemList);
-            missingListView.setAdapter(missingAdapter);
-
-            tvMissingCount.setText( missingItemList.size());
-            tvWrongLocationCount.setText( wrongItemList.size());
         }
 
         ListItemView missingAdapter = new ListItemView(this, missingItemList);
         missingListView.setAdapter(missingAdapter);
 
+        if (missingItemList.size() == 0 && Globals.mode == 3)
+        {
+            tvLocationName.setText("No data for this tag: " + Globals.tagsList.get(Globals.selectedTagId));
+            missingListView.setVisibility(View.GONE);
+        }
+
         if(Globals.mode == 2)
         {
             tvMissingCount.setText( String.valueOf(missingItemList.size()));
             tvWrongLocationCount.setText( String.valueOf(wrongItemList.size()));
-        }
 
+            if(missingItemList.size() == 0)
+            {
+                missingListView.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void OnFixWrongLocation(View view)
@@ -172,5 +187,11 @@ public class CheckActivity extends BaseActivity{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void OnBackSearchScreen(View view) {
+
+        Globals.tagsList.clear();
+        onBackPressed();
     }
 }

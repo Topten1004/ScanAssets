@@ -53,26 +53,6 @@
         <activity
             android:name="com.example.ScanAndGo.FirstSceneActivity" />
 
-        <activity
-            android:name="com.example.ScanAndGo.BoardCategoryActivity" />
-
-        <activity
-            android:name="com.example.ScanAndGo.BoardItemActivity" />
-
-        <activity
-            android:name="com.example.ScanAndGo.BoardBuildingActivity" />
-
-        <activity
-            android:name="com.example.ScanAndGo.BoardAreaActivity" />
-
-        <activity
-            android:name="com.example.ScanAndGo.BoardInventoryActivity" />
-
-        <activity
-            android:name="com.example.ScanAndGo.BoardFloorActivity" />
-
-        <activity
-            android:name="com.example.ScanAndGo.BoardDetailLocationActivity" />
 
         <activity
             android:name="com.example.ScanAndGo.LoginActivity"

@@ -55,6 +55,8 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
         barcode = item.barcode;
 
+        tvRfid.setText(barcode);
+
         return convertView;
     }
 }

@@ -20,8 +20,7 @@
     <TextView
         android:id="@+id/tv_asset_rfid"
         android:layout_width="193dp"
-        android:layout_height="wrap_content"
-        android:text="564128133" />
+        android:layout_height="wrap_content" />
 
     <!-- Trash Button with 15% width -->
 

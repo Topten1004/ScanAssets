@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
+    compileSdk 30
     defaultConfig {
         applicationId "com.example.ScanAndGo"
         minSdkVersion 18
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 31
-        versionCode 13
-        versionName "1.13"
+        targetSdkVersion 30
+        versionCode 25
+        versionName "1.25"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

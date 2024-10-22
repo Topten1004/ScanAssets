@@ -152,7 +152,7 @@ public class AddItemActivity extends BaseActivity{
                 {
                     Toast.makeText(this, "Item added successfully!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Item not added successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
                 }
 
             } catch (ExecutionException e) {

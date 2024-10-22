@@ -27,14 +27,13 @@ public class Globals extends Application {
     public static List<String> unknownItems = new ArrayList<>();
 
     public static String apiUrl = url + "api/";
-    public static int categoryId = 0;
 
-    public static int selectedLocationId = 0;
-
-    public static int checkedItem = 0;
     public static String nowBarCode;
 
     public static String selectedImage;
+
+    public static int selectedTagId = 0;
+
     @SuppressWarnings("deprecation")
 
     public boolean isNetworkConnected() {
