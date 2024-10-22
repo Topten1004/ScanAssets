@@ -161,6 +161,7 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
 
     public void onCheck()
     {
+        Globals.tagsList.add("00B07A14F42683113007598A");
         if( Globals.tagsList.size() > 0 )
         {
             if(Globals.mode == 1)

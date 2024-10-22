@@ -127,9 +127,11 @@ public class CheckActivity extends BaseActivity{
 
                 response = new JsonTaskGetAsset().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req).get();
 
+                tvLocationName.setText(response.location_name);
+
                 if (response != null) {
 
-                    AssetsItem temp = new AssetsItem(response.id, tag, response.url);
+                    AssetsItem temp = new AssetsItem(response.id, response.asset_name, tag, response.url);
                     missingItemList.add(temp);
                 }
 

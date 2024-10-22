@@ -30,6 +30,8 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
     public String url;
 
+    public String name;
+
     public ListItemView(@NonNull Context context, @NonNull List<AssetsItem> objects) {
 
         super(context, 0, objects);
@@ -46,6 +48,7 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
         ImageView assetImage = convertView.findViewById(R.id.iv_missing_asset_image);
         TextView tvRfid = convertView.findViewById(R.id.tv_asset_rfid);
+        TextView tvName = convertView.findViewById(R.id.tv_list_asset_name);
 
         id = item.id;
 
@@ -55,7 +58,10 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
         barcode = item.barcode;
 
+        name = item.name;
+
         tvRfid.setText(barcode);
+        tvName.setText(name);
 
         return convertView;
     }
