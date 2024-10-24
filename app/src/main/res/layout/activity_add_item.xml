@@ -1,106 +1,140 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_shortcut_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
-    tools:context="com.example.ScanAndGo.AddItemActivity">
+    android:padding="16dp"
+    tools:context="com.example.ScanAssets.AddItemActivity">
 
+    <!-- Top Buttons (ADD and SEARCH) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/appbar_padding"
+        android:layout_height="63dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_add_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="OnAddAssets"
-            android:text="ADD" />
+            android:backgroundTint="#6200EE"
+            android:padding="12dp"
+            android:text="ADD"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btn_return_search"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="OnIdentificationItem"
-            android:text="SEARCH" />
+            android:backgroundTint="#03DAC5"
+            android:padding="12dp"
+            android:text="SEARCH"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
+    <!-- Location Name Label -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/appbar_padding"
-        android:text="Location Name" />
+        android:text="Location Name"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp" />
 
+    <!-- Location Name and Back Button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tv_add_item_location"
-            android:layout_width="214dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="23232"
-            android:textSize="34sp" />
+            android:textSize="20sp"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/btnBack"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="OnBack"
-            android:text="Back" />
-
+            android:text="Back"
+            android:padding="10dp"
+            android:backgroundTint="#FF5722"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
+    <!-- Asset Name Label -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Asset name" />
+        android:text="Asset Name"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:paddingTop="16dp"
+        android:paddingBottom="4dp" />
 
+    <!-- Asset Name Input Field -->
     <EditText
         android:id="@+id/et_asset_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:background="@drawable/edittext_background"
+        android:hint="Enter asset name"
         android:inputType="text"
-        android:text="" />
+        android:padding="12dp"
+        android:textSize="16sp" />
 
+    <!-- RFID Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/tv_rfid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RFID: " />
-
+            android:text="RFID: "
+            android:textSize="18sp"
+            android:textColor="#000000" />
     </LinearLayout>
 
+    <!-- Capture Asset Image Button -->
     <Button
         android:id="@+id/btn_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="OnAssetImageCapture"
-        android:text="asset image" />
+        android:text="Capture Asset Image"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:backgroundTint="#FF9800"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp" />
 
+    <!-- Asset Image Preview -->
     <ImageView
         android:id="@+id/iv_asset_image"
-        android:layout_width="378dp"
-        android:layout_height="227dp"
-        tools:src="@tools:sample/avatars" />
-
+        android:layout_width="match_parent"
+        android:layout_height="296dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/avatars" />
 </LinearLayout>

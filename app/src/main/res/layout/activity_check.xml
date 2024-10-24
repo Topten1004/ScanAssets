@@ -8,10 +8,9 @@
     <!-- Header Section with Back Button and Location Name -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_location_name"
@@ -46,11 +45,11 @@
 
         <!-- Wrong Location Section -->
         <LinearLayout
+            android:id="@+id/lv_wrong_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_wrong_label"
@@ -77,18 +76,29 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#03DAC5"
                 android:onClick="OnFixWrongLocation"
-                android:padding="8dp"
                 android:text="Fix"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
+        <!-- ListView for Wrong Items -->
+        <ListView
+            android:id="@+id/lv_wrong_items"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:padding="8dp" />
+
         <!-- Unknown Tag Section -->
         <LinearLayout
+            android:id="@+id/lv_unknown_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="8dp">
+            android:orientation="horizontal"
+            android:padding="2dp">
 
             <TextView
                 android:id="@+id/tv_unknown_label"
@@ -96,27 +106,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Unknown Tag:"
-                android:textSize="18sp"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_unknown_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:text="0"
-                android:textSize="18sp"
                 android:textColor="#FF0000"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Missing Items Section -->
         <LinearLayout
+            android:id="@+id/lv_missing_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:padding="8dp">
+            android:orientation="horizontal"
+            android:padding="2dp">
 
             <TextView
                 android:id="@+id/tv_missing_label"
@@ -124,30 +135,30 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Missing Items:"
-                android:textSize="18sp"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_missing_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:text="0"
-                android:textSize="18sp"
                 android:textColor="#FF0000"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
-    </LinearLayout>
 
-    <!-- ListView for Missing Items -->
-    <ListView
-        android:id="@+id/lv_missing_items"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F5F5F5"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
-        android:layout_marginTop="8dp"
-        android:padding="8dp" />
+        <!-- ListView for Missing Items -->
+        <ListView
+            android:id="@+id/lv_missing_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:padding="8dp" />
+    </LinearLayout>
 
 </LinearLayout>

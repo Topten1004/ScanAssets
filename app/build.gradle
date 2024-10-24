@@ -3,12 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdk 30
     defaultConfig {
-        applicationId "com.example.ScanAndGo"
+        applicationId "com.example.ScanAssets"
         minSdkVersion 18
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 30
-        versionCode 25
-        versionName "1.25"
+        versionCode 01
+        versionName "1.01"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -43,7 +43,7 @@ android {
         // 自定义apk名称
         android.applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "ScanAndGo_v${defaultConfig.versionName}.apk"
+                outputFileName = "ScanAssets_v${defaultConfig.versionName}.apk"
             }
         }
     }
