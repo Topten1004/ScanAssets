@@ -32,6 +32,8 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
     public String name;
 
+    public String location_name;
+
     public ListItemView(@NonNull Context context, @NonNull List<AssetsItem> objects) {
 
         super(context, 0, objects);
@@ -49,6 +51,7 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
         ImageView assetImage = convertView.findViewById(R.id.iv_missing_asset_image);
         TextView tvRfid = convertView.findViewById(R.id.tv_asset_rfid);
         TextView tvName = convertView.findViewById(R.id.tv_list_asset_name);
+        TextView tvLocationName = convertView.findViewById(R.id.tv_list_location_name);
 
         id = item.id;
 
@@ -60,8 +63,11 @@ public class ListItemView extends ArrayAdapter<AssetsItem> {
 
         name = item.name;
 
+        location_name = item.location_name;
+
         tvRfid.setText(barcode);
         tvName.setText(name);
+        tvLocationName.setText(location_name);
 
         return convertView;
     }

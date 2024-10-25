@@ -161,21 +161,29 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
 
     public void onCheck()
     {
+        if(Globals.mode == 1)
+            startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
 
-        if( Globals.tagsList.size() > 0 )
-        {
-            if(Globals.mode == 1)
-                startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
+        if(Globals.mode == 2)
+            startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
 
-            if(Globals.mode == 2)
-                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+        if(Globals.mode == 3)
+            startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
 
-            if(Globals.mode == 3)
-                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
-        }
-        else {
-            showToast("Scan at least one tag");
-        }
+//        if( Globals.tagsList.size() > 0 )
+//        {
+//            if(Globals.mode == 1)
+//                startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
+//
+//            if(Globals.mode == 2)
+//                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+//
+//            if(Globals.mode == 3)
+//                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+//        }
+//        else {
+//            showToast("Scan at least one tag");
+//        }
     }
 
     @Override

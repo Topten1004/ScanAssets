@@ -9,10 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ScanAssets.component.ListItemView;
-import com.example.ScanAssets.dto.Asset;
 import com.example.ScanAssets.dto.AssetsItem;
+import com.example.ScanAssets.dto.CheckAsset;
 import com.example.ScanAssets.dto.CheckBarCode;
-import com.example.ScanAssets.dto.GetAsset;
 import com.example.ScanAssets.dto.MessageVM;
 import com.example.ScanAssets.dto.PostCheckTags;
 import com.example.ScanAssets.dto.PostGetAssets;
@@ -41,6 +40,8 @@ public class CheckActivity extends BaseActivity{
     private TextView tvWrongLocationCount;
 
     private TextView tvLocationName;
+
+    private TextView tvUnknownCount;
 
     private LinearLayout llWrongLocation;
 
@@ -72,6 +73,8 @@ public class CheckActivity extends BaseActivity{
 
         tvWrongLocationCount = (TextView) findViewById(R.id.tv_wrong_count);
 
+        tvUnknownCount = (TextView) findViewById(R.id.tv_unknown_count);
+
         if(Globals.mode != 2)
         {
             llWrongLocation.setVisibility(View.GONE);
@@ -84,6 +87,13 @@ public class CheckActivity extends BaseActivity{
 
     public void CallAPI()
     {
+
+        Globals.tagsList.add("00B07A14F42683113007598A");
+        Globals.tagsList.add("30395DFA8302FC80000C9C01");
+        Globals.tagsList.add("E2806995000040173597E496");
+        Globals.tagsList.add("E2806995000040173597E495");
+
+
         if (Globals.mode == 2)
         {
             String req = Globals.apiUrl + "inventory/detect/barcode";
@@ -120,7 +130,7 @@ public class CheckActivity extends BaseActivity{
                 throw new RuntimeException(e);
             }
         }
-        else {
+        else if(Globals.mode == 3) {
 
             String req = Globals.apiUrl + "inventory/read/bybarcode";
 
@@ -131,7 +141,7 @@ public class CheckActivity extends BaseActivity{
                 tvLocationName.setText(Globals.selectedLocation.name);
                 model.barcode_list = Globals.tagsList;
 
-                List<GetAsset> response = new ArrayList<>();
+                CheckAsset response = new CheckAsset();
 
                 Gson gson = new Gson();
                 String modelString = gson.toJson(model);
@@ -140,13 +150,8 @@ public class CheckActivity extends BaseActivity{
 
                 if (response != null) {
 
-                    for(int i = 0; i < response.size(); i++)
-                    {
-                        GetAsset selected = response.get(i);
-
-                        AssetsItem temp = new AssetsItem(selected.id, selected.asset_name, "", selected.url);
-                        missingItemList.add(temp);
-                    }
+                    missingItemList = response.missingList;
+                    unknownItemList = response.unknownList;
                 }
 
             } catch (ExecutionException e) {
@@ -166,19 +171,22 @@ public class CheckActivity extends BaseActivity{
 
         if (missingItemList.size() == 0)
         {
-            tvLocationName.setText("No data for this tag: " + Globals.tagsList.get(Globals.selectedTagId));
             missingListView.setVisibility(View.GONE);
         }
 
         if (Globals.mode == 3)
         {
             wrongListView.setVisibility(View.GONE);
+            tvUnknownCount.setText(String.valueOf(unknownItemList.size()) + "/" + String.valueOf(Globals.tagsList.size()));
+
+            llUnknownLocation.setVisibility(View.VISIBLE);
         }
 
         if(Globals.mode == 2)
         {
-            tvMissingCount.setText( String.valueOf(missingItemList.size()));
-            tvWrongLocationCount.setText( String.valueOf(wrongItemList.size()));
+            tvMissingCount.setText( String.valueOf(missingItemList.size()) + "/" + String.valueOf(Globals.tagsList.size()));
+            tvWrongLocationCount.setText( String.valueOf(wrongItemList.size()) +"/" + String.valueOf(Globals.tagsList.size()));
+            tvUnknownCount.setText(String.valueOf(unknownItemList.size()) + "/" + String.valueOf(Globals.tagsList.size()));
 
             if(missingItemList.size() == 0)
             {
@@ -203,19 +211,24 @@ public class CheckActivity extends BaseActivity{
         for (int i = 0; i < wrongItemList.size(); i++ )
             model.barcode_list.add(wrongItemList.get(i).barcode);
 
-        Gson gson = new Gson();
-        String modelString = gson.toJson(model);
+        if (model.barcode_list.size() > 0)
+        {
+            Gson gson = new Gson();
+            String modelString = gson.toJson(model);
 
-        try {
-            response = new JsonTaskUpdateTag().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req, modelString).get();
+            try {
+                response = new JsonTaskUpdateTag().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req, modelString).get();
 
-            if (response != null) {
-                Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show();
+                if (response != null) {
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show();
+                }
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } else {
+            Toast.makeText(this, "There is no barcode to update", Toast.LENGTH_SHORT).show();
         }
     }
 

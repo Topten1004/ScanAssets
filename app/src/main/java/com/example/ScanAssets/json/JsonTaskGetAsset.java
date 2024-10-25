@@ -3,8 +3,8 @@ package com.example.ScanAssets.json;
 import android.os.AsyncTask;
 
 import com.example.ScanAssets.dto.AssetsItem;
+import com.example.ScanAssets.dto.CheckAsset;
 import com.example.ScanAssets.dto.CheckBarCode;
-import com.example.ScanAssets.dto.GetAsset;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,13 +23,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class JsonTaskGetAsset extends AsyncTask<String, String, List<GetAsset>> {
+public class JsonTaskGetAsset extends AsyncTask<String, String, CheckAsset> {
 
     public JsonTaskGetAsset() {
         super();
     }
 
-    protected List<GetAsset> doInBackground(String... params) {
+    protected CheckAsset doInBackground(String... params) {
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -62,7 +62,7 @@ public class JsonTaskGetAsset extends AsyncTask<String, String, List<GetAsset>> 
             if(!authOk) authOk = !buffer.substring(0, 15).equals("<!DOCTYPE html>");
             if(authOk){
 
-                Type t = new TypeToken<List<GetAsset>>(){}.getType();
+                Type t = new TypeToken<CheckAsset>(){}.getType();
                 return new Gson().fromJson(buffer.toString(), t);
             }
 
@@ -82,7 +82,7 @@ public class JsonTaskGetAsset extends AsyncTask<String, String, List<GetAsset>> 
     }
 
     @Override
-    protected void onPostExecute(List<GetAsset> result) {
-        super.onPostExecute((List<GetAsset>) result);
+    protected void onPostExecute(CheckAsset result) {
+        super.onPostExecute((CheckAsset) result);
     }
 }
