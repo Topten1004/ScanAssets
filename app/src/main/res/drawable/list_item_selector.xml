@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:color/sliding_tab_text_color_active" android:state_activated="true"/>
-    <item android:drawable="@android:color/white"/> <!-- Default background color -->
+    <!-- Selected state color (e.g., dark grey) -->
+    <item android:drawable="@android:color/darker_gray" android:state_activated="true"/>
+
+    <!-- Hover/pressed state color (light grey) -->
+    <item android:drawable="@android:color/holo_blue_light" android:state_pressed="true"/>
+
+    <!-- Default background color (white) -->
+    <item android:drawable="@android:color/white"/>
 </selector>

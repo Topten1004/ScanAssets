@@ -26,6 +26,8 @@ public class Globals extends Application {
     public static List<String> barcodeList = new ArrayList<>();
     public static List<String> unknownItems = new ArrayList<>();
 
+    public static List<String> selectedWrongTagsList = new ArrayList<>();
+
     public static String apiUrl = url + "api/";
 
     public static String nowBarCode;
