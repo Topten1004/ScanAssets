@@ -59,7 +59,7 @@ public class AddItemActivity extends BaseActivity{
         etAssetName = findViewById(R.id.et_asset_name);
         tvRfidTag = findViewById(R.id.tv_rfid);
 
-        tvRfidTag.setText("RFID tag:" + Globals.tagsList.get(0));
+        tvRfidTag.setText("RFID Tag:" + Globals.tagsList.get(0));
     }
 
     public void OnBack(View view) {
