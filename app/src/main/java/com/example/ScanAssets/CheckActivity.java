@@ -2,6 +2,7 @@ package com.example.ScanAssets;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -88,12 +89,6 @@ public class CheckActivity extends BaseActivity{
     public void CallAPI()
     {
 
-        Globals.tagsList.add("00B07A14F42683113007598A");
-        Globals.tagsList.add("30395DFA8302FC80000C9C01");
-        Globals.tagsList.add("E2806995000040173597E496");
-        Globals.tagsList.add("E2806995000040173597E495");
-
-
         if (Globals.mode == 2)
         {
             String req = Globals.apiUrl + "inventory/detect/barcode";
@@ -118,12 +113,17 @@ public class CheckActivity extends BaseActivity{
                 response = new JsonTaskCheckTag().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, req, modelString).get();
 
                 if (response != null) {
-
                     wrongItemList = response.wrongList;
                     missingItemList = response.missingList;
                     unknownItemList = response.unknownList;
-                }
 
+                    for (AssetsItem item : wrongItemList) {
+                        Log.d("CheckActivity", "Wrong Item URL: " + item.url);
+                    }
+                    for (AssetsItem item : missingItemList) {
+                        Log.d("CheckActivity", "Missing Item URL: " + item.url);
+                    }
+                }
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
@@ -168,7 +168,6 @@ public class CheckActivity extends BaseActivity{
         ListItemView wrongAdapter = new ListItemView(this, wrongItemList);
         wrongListView.setAdapter(wrongAdapter);
 
-
         if (missingItemList.size() == 0)
         {
             missingListView.setVisibility(View.GONE);
@@ -208,11 +207,10 @@ public class CheckActivity extends BaseActivity{
 
         MessageVM response = new MessageVM();
 
-        for (int i = 0; i < wrongItemList.size(); i++ )
-            model.barcode_list.add(wrongItemList.get(i).barcode);
-
-        if (model.barcode_list.size() > 0)
+        if (Globals.selectedWrongTagsList.size() > 0)
         {
+            model.barcode_list = Globals.selectedWrongTagsList;
+
             Gson gson = new Gson();
             String modelString = gson.toJson(model);
 
@@ -230,7 +228,33 @@ public class CheckActivity extends BaseActivity{
         } else {
             Toast.makeText(this, "There is no barcode to update", Toast.LENGTH_SHORT).show();
         }
+
+        CallAPI();
+
+        updateAdapters();
     }
+
+    private void updateAdapters() {
+        // Update missing items adapter
+        ListItemView missingAdapter = new ListItemView(this, missingItemList);
+        missingListView.setAdapter(missingAdapter);
+
+        // Update wrong items adapter
+        ListItemView wrongAdapter = new ListItemView(this, wrongItemList);
+        wrongListView.setAdapter(wrongAdapter);
+
+        // Show or hide missingListView based on the size of missingItemList
+        missingListView.setVisibility(missingItemList.size() == 0 ? View.GONE : View.VISIBLE);
+
+        // Show or hide wrongListView based on the size of wrongItemList
+        wrongListView.setVisibility(wrongItemList.size() == 0 ? View.GONE : View.VISIBLE);
+
+        // Update TextView counts
+        tvMissingCount.setText(String.format("%d/%d", missingItemList.size(), Globals.tagsList.size()));
+        tvWrongLocationCount.setText(String.format("%d/%d", wrongItemList.size(), Globals.tagsList.size()));
+        tvUnknownCount.setText(String.format("%d/%d", unknownItemList.size(), Globals.tagsList.size()));
+    }
+
 
     public void OnBackSearchScreen(View view) {
 
