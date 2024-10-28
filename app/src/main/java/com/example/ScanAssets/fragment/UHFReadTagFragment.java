@@ -161,29 +161,26 @@ public class UHFReadTagFragment extends Fragment implements View.OnClickListener
 
     public void onCheck()
     {
-        if(Globals.mode == 1)
-            startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
+//        Globals.tagsList.add("00B07A14F42683113007598A");
+//        Globals.tagsList.add("30395DFA8302FC80000C9C01");
+//        Globals.tagsList.add("E2806995000040173597E495");
+//        Globals.tagsList.add("E2806995000040173597E496");
 
-        if(Globals.mode == 2)
-            startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+        if( Globals.tagsList.size() > 0 )
+        {
+            if(Globals.mode == 1)
+                startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
 
-        if(Globals.mode == 3)
-            startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+            if(Globals.mode == 2)
+                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
 
-//        if( Globals.tagsList.size() > 0 )
-//        {
-//            if(Globals.mode == 1)
-//                startActivityForResult(new Intent(mContext.getApplicationContext(), AddItemActivity.class), 0);
-//
-//            if(Globals.mode == 2)
-//                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
-//
-//            if(Globals.mode == 3)
-//                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
-//        }
-//        else {
-//            showToast("Scan at least one tag");
-//        }
+            if(Globals.mode == 3)
+                startActivityForResult(new Intent(mContext.getApplicationContext(), CheckActivity.class), 0);
+        }
+        else {
+            showToast("Scan at least one tag");
+        }
+
     }
 
     @Override
